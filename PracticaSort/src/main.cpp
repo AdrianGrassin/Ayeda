@@ -35,7 +35,7 @@ int main() {
       break;
       case 'l' :
         float alph;
-        std::cout << "Introduce un alfa entre [0.0 - 1]:  ";
+        std::cout << "Introduce un alfa entre [0.1 - 1]:  ";
         std::cin >> alph;
         metodo = new ShellSort<CLAVE>(alph);
         keeponloop = false;
