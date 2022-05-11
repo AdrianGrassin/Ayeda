@@ -5,33 +5,114 @@
 #ifndef BALANCEDTREE_INCLUDE_BINARYTREE_H_
 #define BALANCEDTREE_INCLUDE_BINARYTREE_H_
 
+#define IZQUIERDA 1
+#define DERECHA 0
+
 #include <iostream>
+#include <queue>
+#include <stack>
 #include "binaryNode.h"
 
 template<class Key>
 class AB {
- protected:
-  NodoB<Key>* root;
-
  public:
 
+  NodoB<Key> *root_;
 
-  virtual bool insertar(const Key& k) = 0;
-  virtual bool buscar(const Key& k) const = 0;
-  void inorden() const;
+  virtual bool insertar(const Key &k) = 0;
+  virtual bool buscar(const Key &k) const = 0;
+  virtual void inorden() const;
+  virtual void write() const;
 
-  std::ostream& operator<<(std::ostream& os);
 };
 
 template<class Key>
 void AB<Key>::inorden() const {
+  std::vector<Key> inorden;
+  std::stack<NodoB<Key> *> pila;
+  NodoB<Key> *buff = root_;
+
+  while (true) {
+    if (buff != NULL) {
+      pila.push(buff);
+      buff = buff->getnode(IZQUIERDA);
+    } else {
+      if (pila.empty())
+        break;
+      buff = pila.top();
+      pila.pop();
+      inorden.push_back(buff->getdata());
+      buff = buff->getnode(DERECHA);
+    }
+  }
+
+  std::cout << "INORDEN: ";
+
+  for (const auto &nodo : inorden) {
+    std::cout << "[" << nodo << "] ";
+  }
+
+  std::cout << std::endl;
 
 }
 
-
 template<class Key>
-std::ostream &AB<Key>::operator<<(std::ostream &os) {
-  return os;
+void AB<Key>::write() const {
+  std::queue<NodoB<Key> *> cola;
+  cola.push(root_);
+
+  unsigned piso = 1;
+  unsigned siguientepiso = 0;
+  unsigned distancia = 0;
+  bool nextpiso = false;
+  auto *invalido = new NodoB<Key>(-1);
+
+  std::cout << "Nivel 0:";
+  while (!cola.empty()) {
+
+    NodoB<Key> *k = cola.front();
+    cola.pop();
+    if (k == nullptr && nextpiso) {
+      cola.push(nullptr);
+      cola.push(nullptr);
+      siguientepiso++;
+      siguientepiso++;
+      std::cout << "[.]";
+      piso--;
+    }
+    if (k == nullptr && !nextpiso){
+      std::cout << "[.]";
+      piso--;
+    }
+    if(k != nullptr) {
+      std::cout << "[" << k->getdata() << "]";
+
+      if (k->getnode(IZQUIERDA) != nullptr) {
+        cola.push(k->getnode(IZQUIERDA));
+        nextpiso = true;
+      } else
+        cola.push(nullptr);
+
+      if (k->getnode(DERECHA) != nullptr) {
+        cola.push(k->getnode(DERECHA));
+        nextpiso = true;
+      } else
+        cola.push(nullptr);
+
+      siguientepiso++;
+      siguientepiso++;
+
+      piso--;
+    }
+    if (piso == 0 && !cola.empty()) {
+      distancia++;
+      std::cout << "\nNivel " << distancia << ": ";
+      piso = siguientepiso;
+      siguientepiso = 0;
+      nextpiso = false;
+    }
+  }
+  std::cout << std::endl;
 }
 
 #endif //BALANCEDTREE_INCLUDE_BINARYTREE_H_
