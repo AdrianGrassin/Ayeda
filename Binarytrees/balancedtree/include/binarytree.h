@@ -24,6 +24,9 @@ class AB {
   virtual void inorden() const;
   virtual void write() const;
 
+  Key& search(NodoB<Key>* nodo, const Key& k);
+  virtual Key& operator[](const Key&);
+
 };
 
 template<class Key>
@@ -65,7 +68,6 @@ void AB<Key>::write() const {
   unsigned siguientepiso = 0;
   unsigned distancia = 0;
   bool nextpiso = false;
-  auto *invalido = new NodoB<Key>(-1);
 
   std::cout << "Nivel 0:";
   while (!cola.empty()) {
@@ -113,6 +115,33 @@ void AB<Key>::write() const {
     }
   }
   std::cout << std::endl;
+}
+
+template<class Key>
+Key& AB<Key>::operator[](const Key& k) {
+  return search(root_, k);
+}
+
+template<class Key>
+Key &AB<Key>::search(NodoB<Key> *nodo, const Key &k) {
+  std::stack<NodoB<Key> *> pila;
+  NodoB<Key> *buff = root_;
+
+  while (true) {
+    if (buff != NULL) {
+      pila.push(buff);
+      buff = buff->getnode(IZQUIERDA);
+    } else {
+      if (pila.empty())
+        break;
+      buff = pila.top();
+      pila.pop();
+      if (buff->getdata() == k)
+        return buff->getdata();
+      buff = buff->getnode(DERECHA);
+    }
+  }
+  std::cout << "No se encontro el elemento\n";
 }
 
 #endif //BALANCEDTREE_INCLUDE_BINARYTREE_H_

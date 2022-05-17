@@ -22,9 +22,10 @@ class ABE : public AB<Key> {
 
 template<class Key>
 bool ABE<Key>::insertar(const Key &k) {
-  if(AB<Key>::root_ == nullptr)
+  if(AB<Key>::root_ == nullptr) {
     AB<Key>::root_ = new NodoB<Key>(k);
-
+    return true;
+  }
   if (buscar(k))
     return false;
 
@@ -44,18 +45,25 @@ ABE<Key>::ABE() {
 }
 template<class Key>
 bool ABE<Key>::buscaraux(NodoB<Key> *node, Key k) const {
-  if (node->getdata() == k) {
-    return true;
+  std::stack<NodoB<Key> *> pila;
+  NodoB<Key> *buff = AB<Key>::root_;
+
+  while (true) {
+    if (buff != NULL) {
+      pila.push(buff);
+      buff = buff->getnode(IZQUIERDA);
+    } else {
+      if (pila.empty())
+        break;
+      buff = pila.top();
+      pila.pop();
+      if(buff->getdata() == k)
+        return true;
+
+      buff = buff->getnode(DERECHA);
+    }
   }
-  if (node == nullptr)
-    return false;
-
-  if (k > node->getdata())
-    return buscaraux(node->getnode(IZQUIERDA), k);
-  else
-    return buscaraux(node->getnode(DERECHA), k);
-
-
+  return false;
 }
 template<class Key>
 void ABE<Key>::insertaraux(NodoB<Key> *&node, Key k) const {

@@ -20,7 +20,7 @@ class NodoB {
 
   ~NodoB();
 
-  Key getdata() const;
+  Key& getdata();
   NodoB *& getnode(bool side);
 
 };
@@ -44,11 +44,9 @@ NodoB<Key>::NodoB(Key dato, NodoB *izq, NodoB *dch) {
 }
 
 template<class Key>
-Key NodoB<Key>::getdata() const {
+Key& NodoB<Key>::getdata() {
   if(this != nullptr)
   return dato_;
-  else
-    return NULL;
 }
 
 template<class Key>

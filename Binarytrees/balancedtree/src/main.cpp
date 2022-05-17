@@ -2,7 +2,7 @@
 #include <unistd.h>
 #include "utilities.cpp"
 #include "../include/eqBT.h"
-#include "../include/clasepocha.h"
+#include "../include/classmodi.h"
 
 #pragma execution_character_set( "utf-8" )
 #define Key Key
@@ -35,7 +35,8 @@ int main() {
       case 'b' :
         std::cout << "Introduzca el dato a buscar: ";
         std::cin >> dato;
-        Abin->buscar(dato);
+        Abin->operator[](dato).readdata();
+        Abin->operator[](dato).modifydata();
         break;
       case 'm' :
         std::cout << "Imprimiendo el árbol en inorden: \n";
