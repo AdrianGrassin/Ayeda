@@ -99,8 +99,10 @@ void ABB<Key>::eliminarnodo(NodoB<Key> *nodoEliminar) {
   } else if (nodoEliminar == AB<Key>::root_){
     if(nodoEliminar->getnode(IZQUIERDA))
       AB<Key>::root_ = nodoEliminar->getnode(IZQUIERDA);
-    else if (nodoEliminar->getnode(DERECHA))
+    if (nodoEliminar->getnode(DERECHA))
       AB<Key>::root_ = nodoEliminar->getnode(DERECHA);
+    else
+      AB<Key>::root_ = nullptr;
   } else if (nodoEliminar->getnode(IZQUIERDA) ) {
     NodoB<Key> *padre = getparentnode(AB<Key>::root_, nodoEliminar->getdata());
     if(nodoEliminar->getdata() == padre->getnode(IZQUIERDA)->getdata())
@@ -116,10 +118,6 @@ void ABB<Key>::eliminarnodo(NodoB<Key> *nodoEliminar) {
       padre->getnode(DERECHA) = nodoEliminar->getnode(DERECHA);
     delete nodoEliminar;
   } else {
-    if (nodoEliminar == AB<Key>::root_) {
-      AB<Key>::root_ = nullptr;
-      return;
-    }
     NodoB<Key> *padre = getparentnode(AB<Key>::root_, nodoEliminar->getdata());
     if (padre->getnode(IZQUIERDA) == nodoEliminar)
       padre->getnode(IZQUIERDA) = nullptr;
