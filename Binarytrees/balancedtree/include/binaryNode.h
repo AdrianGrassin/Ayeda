@@ -20,8 +20,10 @@ class NodoB {
 
   ~NodoB();
 
-  Key& getdata();
-  NodoB *& getnode(bool side);
+  Key &getdata();
+  NodoB *&getnode(bool side);
+
+
 
 };
 
@@ -44,13 +46,15 @@ NodoB<Key>::NodoB(Key dato, NodoB *izq, NodoB *dch) {
 }
 
 template<class Key>
-Key& NodoB<Key>::getdata() {
-  if(this != nullptr)
-  return dato_;
+Key &NodoB<Key>::getdata() {
+  if (this != nullptr)
+    return dato_;
+
+  throw std::invalid_argument("Not found");
 }
 
 template<class Key>
-NodoB<Key>*& NodoB<Key>::getnode(bool side) {
+NodoB<Key> *&NodoB<Key>::getnode(bool side) {
   if (side)
     return izq_;
   return dcho_;
