@@ -57,14 +57,12 @@ bool ABE<Key>::buscaraux(NodoB<Key> *node, Key k) const {
         break;
       buff = pila.top();
       pila.pop();
-      if (buff->getdata() == k){
-        std::cout << "nodo encontrado! \n";
-      return true;
-    }
+      if(buff->getdata() == k)
+        return true;
+
       buff = buff->getnode(DERECHA);
     }
   }
-  std::cout << "nodo NO encontrado! \n";
   return false;
 }
 template<class Key>

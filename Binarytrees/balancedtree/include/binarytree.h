@@ -22,11 +22,10 @@ class AB {
   virtual bool insertar(const Key &k) = 0;
   virtual bool buscar(const Key &k) const = 0;
   virtual void inorden() const;
-  virtual bool eliminar(const Key &k);
   virtual void write() const;
 
-  Key &search(NodoB<Key> *nodo, const Key &k);
-  virtual Key &operator[](const Key &);
+  Key& search(NodoB<Key>* nodo, const Key& k);
+  virtual Key& operator[](const Key&);
 
 };
 
@@ -83,11 +82,11 @@ void AB<Key>::write() const {
       std::cout << "[.]";
       piso--;
     }
-    if (k == nullptr && !nextpiso) {
+    if (k == nullptr && !nextpiso){
       std::cout << "[.]";
       piso--;
     }
-    if (k != nullptr) {
+    if(k != nullptr) {
       std::cout << "[" << k->getdata() << "]";
 
       if (k->getnode(IZQUIERDA) != nullptr) {
@@ -119,12 +118,8 @@ void AB<Key>::write() const {
 }
 
 template<class Key>
-Key &AB<Key>::operator[](const Key &k) {
-  try {
-    return search(root_, k);
-  } catch (std::invalid_argument &err) {
-    throw err;
-  }
+Key& AB<Key>::operator[](const Key& k) {
+  return search(root_, k);
 }
 
 template<class Key>
@@ -146,12 +141,7 @@ Key &AB<Key>::search(NodoB<Key> *nodo, const Key &k) {
       buff = buff->getnode(DERECHA);
     }
   }
-
-  throw std::invalid_argument("No encontrado\n");
-}
-template<class Key>
-bool AB<Key>::eliminar(const Key &k) {
-  return false;
+  std::cout << "No se encontro el elemento\n";
 }
 
 #endif //BALANCEDTREE_INCLUDE_BINARYTREE_H_
