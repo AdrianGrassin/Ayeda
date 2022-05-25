@@ -15,6 +15,7 @@ class Key {
 
  public:
   Key();
+  Key(int a) : clave(a), data() {}
   Key(int a, std::string &dat) : clave(a), data(dat) {};
   bool operator==(const Key &key) const;
   bool operator<(const Key &key) const;

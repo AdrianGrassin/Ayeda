@@ -25,4 +25,14 @@ void menu(int selector) {
                  "[s] Salir\n"
                  ">";
   }
+  if(selector == 3) {
+    std::cout << "AYEDA 2022 - Adrián Grassin\n"
+                 "ARBOL BINARIO AVL\n"
+                 "[i] Insertar clave\n"
+                 "[b] Buscar clave\n"
+                 "[m] Mostrar árbol inorden\n"
+                 "[e] Eliminar nodo\n"
+                 "[s] Salir\n"
+                 ">";
+  }
 }
