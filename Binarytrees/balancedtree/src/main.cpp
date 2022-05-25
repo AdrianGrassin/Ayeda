@@ -1,6 +1,6 @@
 #include <iostream>
 #include <unistd.h>
-#include "utilities.cpp"
+#include "../include/utilities.h"
 #include "../include/eqBT.h"
 #include "../include/ABB.h"
 #include "../include/classmodi.h"
@@ -14,6 +14,36 @@ int main() {
   char option;
   int treesel;
   Key dato;
+
+  AB<Key> *equi = new ABE<Key>();
+  AB<Key> *sear = new ABB<Key>();
+
+  std::cout << "Se han creado 2 arboles: Un ABE y un ABB\n";
+
+  srand(time(nullptr));
+  for (int i = 0; i <= 500; i++) {
+    dato = rand() % 1000;
+    equi->insertar(dato);
+  }
+
+  srand(time(nullptr));
+  comp = 0;
+  dato = rand() % 1000;
+  equi->buscar(dato);
+  std::cout << "\nse comparó: " << comp << "veces en el ABE\n";
+
+  for (int i = 0; i <= 500; i++) {
+    dato = rand() % 1000;
+    sear->insertar(dato);
+  }
+
+  comp = 0;
+  dato = rand() % 1000;
+  sear->buscar(dato);
+  std::cout << "\nse comparó: " << comp << "veces en el ABB\n";
+
+  system("pause");
+  system("cls");
 
   std::cout << "Escoge el árbol a utilizar:\n"
                "1. AB_equilibrado\n"
@@ -45,8 +75,7 @@ int main() {
         std::cin >> dato;
         if (Abin->insertar(dato)) {
           std::cout << "nodo insertado!\n";
-        }
-        else
+        } else
           std::cout << "el nodo no se pudo insertar\n";
 
         Abin->write();
@@ -55,7 +84,10 @@ int main() {
         try {
           std::cout << "Introduzca el dato a buscar: ";
           std::cin >> dato;
-          Abin->buscar(dato);
+          if (Abin->buscar(dato))
+            std::cout << "Se encontró el elemento buscado!\n";
+          else
+            std::cout << "No se encontró el elemento buscado!\n";
         } catch (std::invalid_argument &err) {
           std::cerr << err.what() << "\n";
         }

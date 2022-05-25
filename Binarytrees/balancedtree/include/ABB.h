@@ -60,9 +60,8 @@ NodoB<Key> *ABB<Key>::getparentnode(NodoB<Key> *nodo, const Key k) {
   if (nodo == nullptr)
     return nullptr;
 
-  if(nodo->getdata() == AB<Key>::root_->getdata())
+  if (nodo->getdata() == AB<Key>::root_->getdata())
     return nodo;
-
 
   if (nodo->getnode(IZQUIERDA) != nullptr) {
     if (nodo->getnode(IZQUIERDA)->getdata() == k) {
@@ -96,23 +95,23 @@ void ABB<Key>::eliminarnodo(NodoB<Key> *nodoEliminar) {
     NodoB<Key> *min = getmenorenrama(nodoEliminar->getnode(DERECHA));
     nodoEliminar->getdata() = min->getdata();
     eliminarnodo(min);
-  } else if (nodoEliminar == AB<Key>::root_){
-    if(nodoEliminar->getnode(IZQUIERDA))
-      AB<Key>::root_ = nodoEliminar->getnode(IZQUIERDA);
-    if (nodoEliminar->getnode(DERECHA))
-      AB<Key>::root_ = nodoEliminar->getnode(DERECHA);
+  } else if (nodoEliminar == AB<Key>::root_) {
+    if (AB<Key>::root_->getnode(IZQUIERDA)) {
+      AB<Key>::root_ = AB<Key>::root_->getnode(IZQUIERDA);
+    } else if (AB<Key>::root_->getnode(DERECHA))
+      AB<Key>::root_ = AB<Key>::root_->getnode(DERECHA);
     else
       AB<Key>::root_ = nullptr;
-  } else if (nodoEliminar->getnode(IZQUIERDA) ) {
+  } else if (nodoEliminar->getnode(IZQUIERDA)) {
     NodoB<Key> *padre = getparentnode(AB<Key>::root_, nodoEliminar->getdata());
-    if(nodoEliminar->getdata() == padre->getnode(IZQUIERDA)->getdata())
+    if (nodoEliminar->getdata() == padre->getnode(IZQUIERDA)->getdata())
       padre->getnode(IZQUIERDA) = nodoEliminar->getnode(IZQUIERDA);
     else
       padre->getnode(DERECHA) = nodoEliminar->getnode(IZQUIERDA);
     delete nodoEliminar;
   } else if (nodoEliminar->getnode(DERECHA)) {
     NodoB<Key> *padre = getparentnode(AB<Key>::root_, nodoEliminar->getdata());
-    if(nodoEliminar->getdata() == padre->getnode(IZQUIERDA)->getdata())
+    if (nodoEliminar->getdata() == padre->getnode(IZQUIERDA)->getdata())
       padre->getnode(IZQUIERDA) = nodoEliminar->getnode(DERECHA);
     else
       padre->getnode(DERECHA) = nodoEliminar->getnode(DERECHA);
@@ -143,8 +142,7 @@ bool ABB<Key>::eliminar(const Key &k) {
     if (parent->getnode(IZQUIERDA)) {
       if (parent->getnode(IZQUIERDA)->getdata() == k)
         eliminarnodo(parent->getnode(IZQUIERDA));
-    }
-    else if (parent->getnode(DERECHA)->getdata() == k)
+    } else if (parent->getnode(DERECHA)->getdata() == k)
       eliminarnodo(parent->getnode(DERECHA));
   }
   return true;

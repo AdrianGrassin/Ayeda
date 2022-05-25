@@ -1,8 +1,7 @@
 //
 // Created by grass on 08/05/2022.
 //
-#include <windows.h>
-
+#include "../include/utilities.h"
 
 void menu(int selector) {
   if(selector == -1) {
